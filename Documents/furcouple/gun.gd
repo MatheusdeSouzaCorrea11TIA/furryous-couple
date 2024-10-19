@@ -1,6 +1,7 @@
 extends Node2D
 class_name gunNode
 
+@export var shotEffect : AnimatedSprite2D
 @export var ShootPos : Marker2D
 @export var shotCol : Timer
 var bullet = preload("res://bullet.tscn")
@@ -27,7 +28,11 @@ func _process(_delta):
 			$gunSprite.scale.y = 1
 		if get_parent().global_position.x > get_global_mouse_position().x: 
 			$gunSprite.scale.y = -1
-		if Input.is_action_pressed("shoot") and canShoot == true:
+		var shootButton = Input.is_action_pressed("shoot")
+		
+		##FAZER A ARMA ATIRAR OU COM O TECLADO OU COM O CONTROLE
+		
+		if shootButton and canShoot == true:
 			shoot()
 	if equipped == false:
 		z_index = 0
@@ -35,6 +40,7 @@ func _process(_delta):
 
 func shoot():
 	shotCol.start()
+	shotEffect.play()
 	canShoot = false
 	get_parent().playAnim()
 	var bulInst = bullet.instantiate()

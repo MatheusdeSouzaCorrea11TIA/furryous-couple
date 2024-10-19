@@ -1,7 +1,7 @@
 extends Node2D
 class_name bulletNode
 
-const speed = 5.0
+var speed = 5.0
 var dir : float
 var damageValue : int
 var spread : float
@@ -18,15 +18,23 @@ func _process(_delta):
 
 func _on_bullet_body_entered(body):
 	if body != self and body != gunNode and body != lyan:
-		queue_free()
+		delete()
 
 func _on_area_2d_area_entered(area):
 	#Ignorar
 	if area.name != "Bullet" and area.name != "Equip" and area.name !="Player":
-		queue_free()
+		delete()
 	#Inimigo
 	if area.name == "Enemy":
 		damage(area,damageValue)
+
+func delete():
+	$Sprite2D.hide()
+	$Bullet.queue_free()
+	speed = 0
+	$Particles.emitting = true
+	await get_tree().create_timer($Particles.lifetime).timeout
+	queue_free()
 
 func damage(area,value : int):
 	area.get_parent().life -= value

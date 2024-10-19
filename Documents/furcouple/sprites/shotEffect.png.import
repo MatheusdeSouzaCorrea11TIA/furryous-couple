@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cm60hxmn6ddrt"
-path="res://.godot/imported/LyanRun.png-8e04206601fede8dadbbbe5931488747.ctex"
+uid="uid://csp7vrfkuxtv2"
+path="res://.godot/imported/shotEffect.png-eea538b07c2c0489b3b0620c5747805e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://LyanRun.png"
-dest_files=["res://.godot/imported/LyanRun.png-8e04206601fede8dadbbbe5931488747.ctex"]
+source_file="res://sprites/shotEffect.png"
+dest_files=["res://.godot/imported/shotEffect.png-eea538b07c2c0489b3b0620c5747805e.ctex"]
 
 [params]
 

@@ -1,12 +1,13 @@
-[gd_scene load_steps=16 format=3 uid="uid://o3s8eg8f6bo8"]
+[gd_scene load_steps=17 format=3 uid="uid://o3s8eg8f6bo8"]
 
 [ext_resource type="Script" path="res://lyan.gd" id="1_70kkq"]
 [ext_resource type="Texture2D" uid="uid://boj3r4wektg1b" path="res://sprites/LyanIdle.png" id="1_cqyxx"]
 [ext_resource type="Texture2D" uid="uid://dhsb5k5fpn2b6" path="res://sprites/LyanRunHands.png" id="2_1ewjj"]
 [ext_resource type="Texture2D" uid="uid://dq1p5vvcrh8my" path="res://sprites/LyanIdleHands.png" id="3_0yw33"]
-[ext_resource type="Texture2D" uid="uid://djr6on8ob6fjg" path="res://sprites/LyanRun.png" id="3_s4u2l"]
+[ext_resource type="Texture2D" uid="uid://cm60hxmn6ddrt" path="res://sprites/LyanRun.png" id="3_s4u2l"]
 [ext_resource type="Texture2D" uid="uid://b7do7h0a5ffjt" path="res://sprites/LyanGunHands.png" id="4_racpx"]
 [ext_resource type="Script" path="res://gun_hands.gd" id="5_r2w1f"]
+[ext_resource type="Texture2D" uid="uid://cpuisky5luwlf" path="res://circle.png" id="8_0gf5s"]
 
 [sub_resource type="Animation" id="Animation_angc5"]
 length = 0.001
@@ -227,7 +228,7 @@ tracks/5/keys = {
 resource_name = "Run"
 length = 0.75
 loop_mode = 1
-step = 0.1
+step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -335,6 +336,7 @@ hframes = 8
 position = Vector2(0, 4)
 
 [node name="GunHands" type="Sprite2D" parent="GunHandsPos" node_paths=PackedStringArray("player", "playerPos", "anim")]
+visible = false
 z_index = 1
 texture = ExtResource("4_racpx")
 script = ExtResource("5_r2w1f")
@@ -370,5 +372,12 @@ one_shot = true
 [node name="dashLenght" type="Timer" parent="."]
 wait_time = 0.1
 one_shot = true
+
+[node name="Shadow" type="Sprite2D" parent="."]
+modulate = Color(0.054642, 0.0650582, 0.325594, 0.3)
+z_index = -2
+position = Vector2(0, 9)
+scale = Vector2(0.696069, 0.2)
+texture = ExtResource("8_0gf5s")
 
 [connection signal="timeout" from="dashCol" to="." method="_on_dash_col_timeout"]
