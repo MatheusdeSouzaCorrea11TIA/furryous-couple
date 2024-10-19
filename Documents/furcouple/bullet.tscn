@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://csxg77gmcnyvs"]
+
+[ext_resource type="Script" path="res://bullet.gd" id="1_2fs1i"]
+[ext_resource type="Texture2D" uid="uid://cr1j5e2d3n2a8" path="res://bullet.png" id="2_n88yc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4pitq"]
+size = Vector2(8, 4)
+
+[sub_resource type="Environment" id="Environment_j51df"]
+background_mode = 3
+glow_enabled = true
+
+[node name="Bullet" type="Node2D"]
+script = ExtResource("1_2fs1i")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(2, 2, 2, 1)
+position = Vector2(7, 0)
+texture = ExtResource("2_n88yc")
+
+[node name="Bullet" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bullet"]
+visible = false
+position = Vector2(7, 0)
+shape = SubResource("RectangleShape2D_4pitq")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_j51df")
+
+[connection signal="area_entered" from="Bullet" to="." method="_on_area_2d_area_entered"]
+[connection signal="body_entered" from="Bullet" to="." method="_on_bullet_body_entered"]
