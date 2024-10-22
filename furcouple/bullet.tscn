@@ -1,0 +1,50 @@
+[gd_scene load_steps=4 format=3 uid="uid://csxg77gmcnyvs"]
+
+[ext_resource type="Script" path="res://scripts/bullet.gd" id="1_2fs1i"]
+[ext_resource type="Texture2D" uid="uid://cr1j5e2d3n2a8" path="res://sprites/bullet.png" id="2_n88yc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4pitq"]
+size = Vector2(8, 4)
+
+[node name="Bullet" type="Node2D"]
+z_index = 1
+script = ExtResource("1_2fs1i")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(2, 2, 2, 1)
+position = Vector2(7, 0)
+texture = ExtResource("2_n88yc")
+
+[node name="Bullet" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bullet"]
+visible = false
+position = Vector2(7, 0)
+shape = SubResource("RectangleShape2D_4pitq")
+
+[node name="Particles" type="CPUParticles2D" parent="."]
+modulate = Color(1, 2, 0.3, 1)
+z_index = 1
+position = Vector2(11, 0)
+emitting = false
+amount = 2
+lifetime = 0.75
+one_shot = true
+speed_scale = 2.0
+explosiveness = 1.0
+lifetime_randomness = 0.5
+direction = Vector2(-1, 0)
+gravity = Vector2(0, 0)
+initial_velocity_min = 30.0
+initial_velocity_max = 40.0
+scale_amount_min = 2.0
+scale_amount_max = 3.0
+
+[node name="lifeTime" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[connection signal="area_entered" from="Bullet" to="." method="_on_area_2d_area_entered"]
+[connection signal="body_entered" from="Bullet" to="." method="_on_bullet_body_entered"]
+[connection signal="timeout" from="lifeTime" to="." method="_on_life_time_timeout"]

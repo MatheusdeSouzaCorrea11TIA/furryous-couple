@@ -1,0 +1,214 @@
+[gd_scene load_steps=11 format=3 uid="uid://b5wdu5v6hqn12"]
+
+[ext_resource type="Script" path="res://scripts/enemy.gd" id="1_knxs5"]
+[ext_resource type="Texture2D" uid="uid://cu51oym5xy3kc" path="res://sprites/EnemyRun.png" id="1_rsra7"]
+[ext_resource type="Texture2D" uid="uid://b5s0bbwtucicw" path="res://sprites/swordSlash.png" id="3_2llmk"]
+
+[sub_resource type="Animation" id="Animation_2fo31"]
+resource_name = "Run"
+length = 0.75
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_rsra7")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [8]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("enemyAttack/Slash:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("enemyAttack/CollisionShape2D:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_15mqs"]
+resource_name = "attack"
+length = 0.65
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("enemyAttack/Slash:hframes")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [7]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("enemyAttack/Slash:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("enemyAttack/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [true, false, true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("enemyAttack/Slash:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_uasg0"]
+_data = {
+"Run": SubResource("Animation_2fo31"),
+"attack": SubResource("Animation_15mqs")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m3uhb"]
+size = Vector2(23, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qk3sw"]
+size = Vector2(6, 7)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vymvj"]
+size = Vector2(16.7817, 14.98)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2tywn"]
+radius = 24.0
+
+[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("randSpeed", "anim", "attackTime", "attackArea")]
+z_index = 1
+motion_mode = 1
+script = ExtResource("1_knxs5")
+randSpeed = NodePath("randSpeed")
+anim = NodePath("Anim")
+attackTime = NodePath("attackTimer")
+attackArea = NodePath("enemyAttack")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+modulate = Color(3, 3, 3, 1)
+texture = ExtResource("1_rsra7")
+hframes = 8
+
+[node name="Anim" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_uasg0")
+}
+
+[node name="enemyAttack" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="enemyAttack"]
+position = Vector2(12.5, 0)
+shape = SubResource("RectangleShape2D_m3uhb")
+
+[node name="Slash" type="Sprite2D" parent="enemyAttack"]
+visible = false
+position = Vector2(8, 0)
+texture = ExtResource("3_2llmk")
+hframes = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, 5.5)
+shape = SubResource("RectangleShape2D_qk3sw")
+
+[node name="Enemy" type="Area2D" parent="." groups=["destroyBullet"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy"]
+visible = false
+z_index = 2
+position = Vector2(0, 0.44)
+scale = Vector2(0.617, 1.135)
+shape = SubResource("RectangleShape2D_vymvj")
+
+[node name="Distance" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Distance"]
+shape = SubResource("CircleShape2D_2tywn")
+
+[node name="randSpeed" type="Timer" parent="."]
+one_shot = true
+
+[node name="attackTimer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
+[connection signal="area_entered" from="Enemy" to="." method="_on_enemy_area_entered"]
+[connection signal="area_entered" from="Distance" to="." method="_on_distance_area_entered"]
